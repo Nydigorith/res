@@ -525,7 +525,7 @@
             if (checkNan == false && checkNull == false) {
 
                 resistance.innerHTML = `${decimalAbbreviation(resistanceMultiplied.toFixed(2), 2).toString()} <span class="symbol">Ω ±</span>
-                ${tolerance.toString()}<span class="symbol">%</span> ${temperatureCoefficientText}`;
+                ${tolerance.toString()}<span class="symbol">%</span> <br>${temperatureCoefficientText}`;
                 minimum.innerHTML =
                     `${decimalAbbreviation(minimumResistance.toFixed(2), 2).toString()} <span class="symbol">Ω</span>`;
                 maximum.innerHTML =
