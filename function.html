@@ -230,63 +230,43 @@
         removeResult();
 
         firstBandSelector.addEventListener('change', function (){
-            let firstBandSelectorIndex = firstBandSelector.options[firstBandSelector.selectedIndex];
-            let color = firstBandSelectorIndex.text;
-        
-            colorBackground (boxFirstBand,  firstBandSelector, firstBand, color);
+           
+           
             
-            hiddenFirstBand.text = firstBandSelectorIndex.value;
-            hiddenFirstBand.value = firstBandSelectorIndex.text;
-            firstBandSelector.selectedIndex = 1;
+            onChangeSelectorEvent(hiddenFirstBand,  firstBandSelector);
+            
+
+            
+            colorBackground (boxFirstBand,  firstBandSelector, firstBand);
     
-            colorText(firstBandSelector, firstBandSelectorIndex);
             onChange();
         });
 
+
         secondBandSelector.addEventListener('change', function () {
-            let secondBandSelectorIndex = secondBandSelector.options[secondBandSelector.selectedIndex];
-            let color = secondBandSelectorIndex.text;
+            onChangeSelectorEvent(hiddenSecondBand,  secondBandSelector);
 
-            colorBackground (boxSecondBand,  secondBandSelector, secondBand, color);
+            colorBackground (boxSecondBand,  secondBandSelector, secondBand);
 
-            hiddenSecondBand.text = secondBandSelectorIndex.value;
-            hiddenSecondBand.value = secondBandSelectorIndex.text;
-            secondBandSelector.selectedIndex = 1;
-
-            colorText(secondBandSelector, secondBandSelectorIndex);
             onChange();
         });
 
 
 
         thirdBandSelector.addEventListener('change', function () {
-            let thirdBandSelectorIndex = thirdBandSelector.options[thirdBandSelector.selectedIndex];
-            let color = thirdBandSelectorIndex.text;
+            onChangeSelectorEvent(hiddenThirdBand,  thirdBandSelector);
 
-            colorBackground (boxThirdBand,  thirdBandSelector, thirdBand, color);
+            colorBackground (boxThirdBand,  thirdBandSelector, thirdBand);
 
-            hiddenThirdBand.text = thirdBandSelectorIndex.value;
-            hiddenThirdBand.value = thirdBandSelectorIndex.text;
-            thirdBandSelector.selectedIndex = 1;
-
-            colorText(thirdBandSelector, thirdBandSelectorIndex);
             onChange();
         });
 
 
 
         fourthBandSelector.addEventListener('change', function () {
-            let fourthBandSelectorIndex = fourthBandSelector.options[fourthBandSelector.selectedIndex];
-            let color = fourthBandSelectorIndex.text;
+            onChangeSelectorEvent(hiddenFourthBand,  fourthBandSelector);
+            colorBackground (boxFourthBand,  fourthBandSelector, fourthBand);
 
-            colorBackground (boxFourthBand,  fourthBandSelector, fourthBand, color);
-
-
-            hiddenFourthBand.text = fourthBandSelectorIndex.value;
-            hiddenFourthBand.value = fourthBandSelectorIndex.text;
-            fourthBandSelector.selectedIndex = 1;
-
-            colorText(fourthBandSelector, fourthBandSelectorIndex);
             conversion();
             fourthBandSelector.options[1].setAttribute("label", multiplierText);
             onChange();
@@ -296,16 +276,11 @@
 
 
         fifthBandSelector.addEventListener('change', function () {
-            let fifthBandSelectorIndex = fifthBandSelector.options[fifthBandSelector.selectedIndex];
-            let color = fifthBandSelectorIndex.text;
+            onChangeSelectorEvent(hiddenFifthBand,  fifthBandSelector);
 
-            colorBackground (boxFifthBand,  fifthBandSelector, fifthBand, color);
+            colorBackground (boxFifthBand,  fifthBandSelector, fifthBand);
 
-            hiddenFifthBand.text = fifthBandSelectorIndex.value;
-            hiddenFifthBand.value = fifthBandSelectorIndex.text;
-            fifthBandSelector.selectedIndex = 1;
-
-            colorText(fifthBandSelector, fifthBandSelectorIndex);
+            
             conversion();
             fifthBandSelector.options[1].setAttribute("label", toleranceText);
             onChange();
@@ -313,17 +288,13 @@
 
 
 
-        sixthBandSelector.addEventListener('change', function () {
-            let sixthBandSelectorIndex = sixthBandSelector.options[sixthBandSelector.selectedIndex];
-            let color = sixthBandSelectorIndex.text;
+        sixthBandSelector.addEventListener('change', function (e) {
+            onChangeSelectorEvent(hiddenSixthBand,  sixthBandSelector);
+            colorBackground (boxSixthBand,  sixthBandSelector, sixthBand);
 
-            colorBackground (boxSixthBand,  sixthBandSelector, sixthBand, color);
+            
 
-            hiddenSixthBand.text = sixthBandSelectorIndex.value;
-            hiddenSixthBand.value = sixthBandSelectorIndex.text;
-            sixthBandSelector.selectedIndex = 1;
-
-            colorText(sixthBandSelector, sixthBandSelectorIndex);
+      
             conversion();
             sixthBandSelector.options[1].setAttribute("label", temperatureCoefficientText);
             onChange();
@@ -456,7 +427,6 @@
             minimum.style.display = "block";
             maximum.style.display = "block";
 
-            if (four.checked || five.checked) {
             if (checkNan == false) {
                 resistance.innerHTML = `${decimalAbbreviation(resistanceMultiplied.toFixed(2), 2).toString()} <span class="symbol">Ω ±</span>  
                 ${tolerance.toString()} <span class="symbol">%</span>`;
@@ -465,7 +435,7 @@
                 maximum.innerHTML =
                     `${decimalAbbreviation(maximumResistance.toFixed(2), 2).toString()} <span class="symbol">Ω</span>`;
             }
-        }else {
+
 
             if (checkNan == false && checkNull == false) {
                 resistance.innerHTML = `${decimalAbbreviation(resistanceMultiplied.toFixed(2), 2).toString()} <span class="symbol">Ω ±</span>
@@ -475,7 +445,6 @@
                 maximum.innerHTML =
                     `${decimalAbbreviation(maximumResistance.toFixed(2), 2).toString()} <span class="symbol">Ω</span>`;
             }
-        }
         }
 
         function conversion() {
@@ -611,12 +580,21 @@
             }
         }
 
-        function colorBackground (boxBand, bandSelector, band, color,bandBorder) {
+        function colorBackground (boxBand, bandSelector, band) {
+            let color =  bandSelector.options[bandSelector.selectedIndex].value;
+         
             boxBand.style.backgroundColor = color;
             bandSelector.style.backgroundColor = color;
             band.style.backgroundColor = color;
             bandSelector.style.borderColor = color;
         }
+
+        function onChangeSelectorEvent(hiddenThisBand,  thisBandSelector) {
+    hiddenThisBand.text = firstBandSelector.options[firstBandSelector.selectedIndex].value;
+            hiddenThisBand.value = firstBandSelector.options[firstBandSelector.selectedIndex].text;
+            thisBandSelector.selectedIndex = 1;
+            colorText(thisBandSelector, firstBandSelector.options[firstBandSelector.selectedIndex]);
+}
 
         function onChangeStyle (oneDisplay, twoDisplay, threeDisplay, fourDisplay, fiveDisplay, sixDisplay, fourBackground, fiveBackground, sixBackground, fourText, fiveText, sixText) {
 
