@@ -91,6 +91,8 @@ document.querySelector("#clear").addEventListener("click", function () {
     for (let i = 0; i < bandResetColor.length; i++) {
         bandResetColor[i].style.backgroundColor = "white";
     }
+    sixthBandSelector.selectedIndex = 0;
+    temperatureCoefficientText = "NaN";
 });
 
 function removeResult() {
@@ -203,7 +205,7 @@ function calculate() {
                 `${decimalAbbreviation(maximumResistance.toFixed(2), 2).toString()} <span class="symbol">Ω</span>`;
         }
     } else {
-        if (checkNan == false && checkNull == false) {
+        if (checkNan == false && checkNull == false &&  temperatureCoefficientText != "NaN") {
             resistance.innerHTML = `${decimalAbbreviation(resistanceMultiplied.toFixed(2), 2).toString()} <span class="symbol">Ω ±</span>
         ${tolerance.toString()}<span class="symbol">%</span> <br>${temperatureCoefficientText}`;
             minimum.innerHTML =
